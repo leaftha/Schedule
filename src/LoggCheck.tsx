@@ -6,7 +6,11 @@ interface User {
   user: number;
 }
 
-const LoggChect = () => {
+const LoggChect = ({
+  checkLoggIn,
+}: {
+  checkLoggIn: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [password, setPassword] = useState<string>("");
   const [user, setUser] = useState<User | null>(null);
 
@@ -33,6 +37,7 @@ const LoggChect = () => {
     e.preventDefault();
     console.log(user?.user, password);
     if (user && Number(password) === user.user) {
+      checkLoggIn(true);
       console.log("로그인 성공");
     } else {
       console.log("로그인 실패");

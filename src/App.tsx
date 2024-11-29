@@ -3,7 +3,7 @@ import "./App.css";
 import LoggChect from "./LoggCheck";
 
 function App() {
-  const [isLogged, setIsLogged] = useState<Boolean>(false);
+  const [isLogged, setIsLogged] = useState<boolean>(false);
   return (
     <div>
       {isLogged ? (
@@ -11,7 +11,7 @@ function App() {
       ) : (
         <div>
           <h1>로그인</h1>
-          <LoggChect />
+          <LoggChect checkLoggIn={setIsLogged} />
         </div>
       )}
     </div>
