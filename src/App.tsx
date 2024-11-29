@@ -1,18 +1,17 @@
 import { useState } from "react";
 import "./App.css";
-import LoggeinModal from "./LoggeinModal";
+import LoggChect from "./LoggCheck";
 
 function App() {
-  const [isLoggeInd, setIsLoggedIn] = useState<Boolean>(false);
+  const [isLogged, setIsLogged] = useState<boolean>(false);
   return (
     <div>
-      <h1>세찬의 스케줄 관리</h1>
-      {isLoggeInd ? (
+      {isLogged ? (
         <div></div>
       ) : (
         <div>
           <h1>로그인</h1>
-          <LoggeinModal />
+          <LoggChect checkLoggIn={setIsLogged} />
         </div>
       )}
     </div>
