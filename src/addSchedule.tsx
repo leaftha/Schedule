@@ -3,6 +3,10 @@ import { ref, set } from "firebase/database";
 import { db } from "./firebase";
 import { uid } from "uid";
 
+const saveDB = (dbPath: string, uuid: string, data: {}) => {
+  set(ref(db, `${dbPath}/${uuid}`), data);
+};
+
 const AddSchedule = () => {
   const [scheduleType, setScheduleType] = useState<string>("주");
   const [scheduleContent, setScheduleContent] = useState<string>("");
@@ -13,15 +17,10 @@ const AddSchedule = () => {
     const selectedDays = formData.getAll("days");
     const uuid = uid();
 
-    const writeData = () => {
-      set(ref(db, "todo_days/" + uuid), {
-        selectedDays,
-        scheduleContent,
-        uuid,
-      });
-      setScheduleContent("");
-    };
-    writeData();
+    const dbPath = scheduleType === "주" ? "todo_week" : "todo_days";
+
+    saveDB(dbPath, uuid, { selectedDays, scheduleContent });
+    setScheduleContent("");
   };
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setScheduleContent(e.target.value);
