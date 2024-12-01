@@ -2,13 +2,14 @@ import { useState } from "react";
 import { ref, set } from "firebase/database";
 import { db } from "./firebase";
 import { uid } from "uid";
+import { useSchedule } from "./scheduleProvider";
 
 const saveDB = (dbPath: string, uuid: string, data: {}) => {
   set(ref(db, `${dbPath}/${uuid}`), data);
 };
 
 const AddSchedule = () => {
-  const [scheduleType, setScheduleType] = useState<string>("주");
+  const { scheduleType, setScheduleType } = useSchedule();
   const [scheduleContent, setScheduleContent] = useState<string>("");
   const inputSchedule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
