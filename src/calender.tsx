@@ -1,5 +1,18 @@
+import { useSchedule } from "./scheduleProvider";
+
 const Calender = () => {
-  return <div></div>;
+  const { scheduleType, setScheduleType } = useSchedule();
+  return (
+    <div>
+      {scheduleType === "주" ? (
+        <div>
+          <div></div>
+        </div>
+      ) : (
+        <div></div>
+      )}
+    </div>
+  );
 };
 
 export default Calender;
