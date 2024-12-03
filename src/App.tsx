@@ -49,7 +49,7 @@ function App() {
         <div>
           <ScheduleProvider>
             <AddSchedule />
-            <Calender />
+            <Calender week={weekData} />
           </ScheduleProvider>
         </div>
       ) : (
