@@ -6,11 +6,13 @@ import Calender from "./calender";
 import { ScheduleProvider } from "./scheduleProvider";
 import { ref, child, get } from "firebase/database";
 import { db } from "./firebase";
+import { ScheduleData } from "./types";
 
 function App() {
   const [isLogged, setIsLogged] = useState<boolean>(false);
-  const [weekData, setWeekData] = useState<object>({});
-  const [DayData, setDayData] = useState<object>({});
+
+  const [weekData, setWeekData] = useState<ScheduleData>({});
+  const [DayData, setDayData] = useState<ScheduleData>({});
   useEffect(() => {
     if (!isLogged) return;
 
@@ -19,7 +21,7 @@ function App() {
       .then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-          setDayData(Array.isArray(data) ? data : Object.values(data));
+          setDayData(data);
         } else {
           console.log("No data available");
         }
@@ -31,7 +33,7 @@ function App() {
       .then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-          setWeekData(Array.isArray(data) ? data : Object.values(data));
+          setWeekData(data);
         } else {
           console.log("No data available");
         }
@@ -41,15 +43,13 @@ function App() {
       });
   }, [isLogged]);
 
-  console.log(weekData);
-  console.log(DayData);
   return (
     <div>
       {isLogged ? (
         <div>
           <ScheduleProvider>
             <AddSchedule />
-            <Calender week={weekData} />
+            <Calender schedules={weekData} />
           </ScheduleProvider>
         </div>
       ) : (
