@@ -3,24 +3,40 @@ import { ref, set } from "firebase/database";
 import { db } from "./firebase";
 import { uid } from "uid";
 import { useSchedule } from "./scheduleProvider";
+import { ScheduleData, ScheduleItem } from "./types";
 
 const saveDB = (dbPath: string, uuid: string, data: {}) => {
   set(ref(db, `${dbPath}/${uuid}`), data);
 };
 
-const AddSchedule = () => {
+const AddSchedule = ({
+  week,
+  addWeek,
+}: {
+  week: ScheduleData;
+  addWeek: React.Dispatch<React.SetStateAction<ScheduleData>>;
+}) => {
   const { scheduleType, setScheduleType } = useSchedule();
   const [scheduleContent, setScheduleContent] = useState<string>("");
   const inputSchedule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    let newData: ScheduleItem = { scheduleContent: "", selectedDays: [] };
     const formData = new FormData(e.currentTarget);
     const selectedDays = formData.getAll("days");
     const uuid = uid();
-
+    console.log(selectedDays);
     const dbPath = scheduleType === "주" ? "todo_week" : "todo_days";
-
     saveDB(dbPath, uuid, { selectedDays, scheduleContent });
+    newData.scheduleContent = scheduleContent;
+    newData.selectedDays = selectedDays;
+    if (scheduleType === "주") {
+      const newWeek = {
+        ...week,
+        [uuid]: newData,
+      };
+      addWeek(newWeek);
+    } else {
+    }
     setScheduleContent("");
   };
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {

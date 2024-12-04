@@ -1,6 +1,6 @@
 export type ScheduleItem = {
   scheduleContent: string;
-  selectedDays: string[]; // 날짜 문자열 배열
+  selectedDays: string[] | FormDataEntryValue[]; // 날짜 문자열 배열
 };
 
 export type ScheduleData = {

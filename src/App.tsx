@@ -10,12 +10,10 @@ import { ScheduleData } from "./types";
 
 function App() {
   const [isLogged, setIsLogged] = useState<boolean>(false);
-
   const [weekData, setWeekData] = useState<ScheduleData>({});
   const [DayData, setDayData] = useState<ScheduleData>({});
   useEffect(() => {
     if (!isLogged) return;
-
     const dbRef = ref(db);
     get(child(dbRef, "/todo_days"))
       .then((snapshot) => {
@@ -42,13 +40,13 @@ function App() {
         console.error(error);
       });
   }, [isLogged]);
-
+  console.log(weekData);
   return (
     <div>
       {isLogged ? (
         <div>
           <ScheduleProvider>
-            <AddSchedule />
+            <AddSchedule week={weekData} addWeek={setWeekData} />
             <Calender schedules={weekData} />
           </ScheduleProvider>
         </div>

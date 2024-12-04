@@ -36,8 +36,6 @@ const Calender = ({ schedules }: { schedules: ScheduleData }) => {
     };
 
     for (let key in schedules) {
-      console.log(schedules[key]);
-
       for (let week of schedules[key].selectedDays) {
         const dayKey = week as keyof WeekType;
         newWeekClassify[dayKey].push([schedules[key].scheduleContent, key]);
@@ -47,7 +45,6 @@ const Calender = ({ schedules }: { schedules: ScheduleData }) => {
     setWeekClassify(newWeekClassify);
   }, [schedules]);
 
-  console.log(weekClassify);
   return (
     <div>
       {scheduleType === "주" ? (
