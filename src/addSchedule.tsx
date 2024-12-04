@@ -24,7 +24,6 @@ const AddSchedule = ({
     const formData = new FormData(e.currentTarget);
     const selectedDays = formData.getAll("days");
     const uuid = uid();
-    console.log(selectedDays);
     const dbPath = scheduleType === "주" ? "todo_week" : "todo_days";
     saveDB(dbPath, uuid, { selectedDays, scheduleContent });
     newData.scheduleContent = scheduleContent;
