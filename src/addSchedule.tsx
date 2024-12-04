@@ -5,7 +5,7 @@ import { uid } from "uid";
 import { useSchedule } from "./scheduleProvider";
 import { ScheduleData, ScheduleItem } from "./types";
 
-const saveDB = (dbPath: string, uuid: string, data: {}) => {
+const saveDB = (dbPath: string, uuid: string, data: ScheduleItem) => {
   set(ref(db, `${dbPath}/${uuid}`), data);
 };
 
