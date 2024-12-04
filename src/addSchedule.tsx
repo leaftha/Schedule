@@ -20,9 +20,13 @@ const AddSchedule = ({
   const [scheduleContent, setScheduleContent] = useState<string>("");
   const inputSchedule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let newData: ScheduleItem = { scheduleContent: "", selectedDays: [] };
     const formData = new FormData(e.currentTarget);
     const selectedDays = formData.getAll("days");
+    if (scheduleContent === "" || selectedDays.length === 0) {
+      alert("스케줄을 입력해 주세요");
+      return;
+    }
+    let newData: ScheduleItem = { scheduleContent: "", selectedDays: [] };
     const uuid = uid();
     const dbPath = scheduleType === "주" ? "todo_week" : "todo_days";
     saveDB(dbPath, uuid, { selectedDays, scheduleContent });
@@ -82,7 +86,6 @@ const AddSchedule = ({
               일
               <input type="checkbox" name="days" value="일" />
             </label>
-            <label>할 일</label>
           </div>
         ) : (
           <div>
