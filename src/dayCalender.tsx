@@ -3,16 +3,6 @@ import { remove, ref } from "firebase/database";
 import { db } from "./firebase";
 import { ScheduleData } from "./types";
 
-type WeekType = {
-  일: Array<[string, string]>;
-  월: Array<[string, string]>;
-  화: Array<[string, string]>;
-  수: Array<[string, string]>;
-  목: Array<[string, string]>;
-  금: Array<[string, string]>;
-  토: Array<[string, string]>;
-};
-
 const DayCalender = ({
   Schedules,
   setSchedules,
