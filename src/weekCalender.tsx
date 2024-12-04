@@ -14,11 +14,11 @@ type WeekType = {
 };
 
 const WeekCalender = ({
-  weekSchedules,
-  deleteWeek,
+  Schedules,
+  setSchedules,
 }: {
-  weekSchedules: ScheduleData;
-  deleteWeek: React.Dispatch<React.SetStateAction<ScheduleData>>;
+  Schedules: ScheduleData;
+  setSchedules: React.Dispatch<React.SetStateAction<ScheduleData>>;
 }) => {
   const [weekClassify, setWeekClassify] = useState<WeekType>({
     일: [],
@@ -41,18 +41,18 @@ const WeekCalender = ({
       토: [],
     };
 
-    for (let key in weekSchedules) {
-      for (let week of weekSchedules[key].selectedDays) {
+    for (let key in Schedules) {
+      for (let week of Schedules[key].selectedDays) {
         const dayKey = week as keyof WeekType;
-        newWeekClassify[dayKey].push([weekSchedules[key].scheduleContent, key]);
+        newWeekClassify[dayKey].push([Schedules[key].scheduleContent, key]);
       }
     }
 
     setWeekClassify(newWeekClassify);
-  }, [weekSchedules]);
+  }, [Schedules]);
 
   const removeData = (id: string) => {
-    deleteWeek((prevWeekSchedules) => {
+    setSchedules((prevWeekSchedules) => {
       const { [id]: _, ...updatedSchedules } = prevWeekSchedules;
       return updatedSchedules;
     });

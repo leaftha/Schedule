@@ -36,7 +36,12 @@ function App() {
         <div>
           <ScheduleProvider>
             <AddSchedule week={weekData} addWeek={setWeekData} />
-            <Calender weekSchedules={weekData} deleteWeek={setWeekData} />
+            <Calender
+              weekSchedules={weekData}
+              deleteWeek={setWeekData}
+              DaySchedules={DayData}
+              deleteDay={setDayData}
+            />
           </ScheduleProvider>
         </div>
       ) : (
