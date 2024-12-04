@@ -15,23 +15,12 @@ function App() {
   useEffect(() => {
     if (!isLogged) return;
     const dbRef = ref(db);
-    get(child(dbRef, "/todo_days"))
+    get(dbRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-          setDayData(data);
-        } else {
-          console.log("No data available");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    get(child(dbRef, "/todo_week"))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          setWeekData(data);
+          setDayData(data.todo_days || {});
+          setWeekData(data.todo_week || {});
         } else {
           console.log("No data available");
         }
