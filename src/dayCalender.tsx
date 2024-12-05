@@ -25,7 +25,18 @@ const DayCalender = ({
     });
   };
 
-  return <div></div>;
+  return (
+    <div>
+      {weekCalendarList.map((week, idx) => (
+        <div>
+          {week.map((day, idx) => (
+            <p>{day}</p>
+          ))}
+          <hr></hr>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default DayCalender;
