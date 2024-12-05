@@ -11,9 +11,16 @@ const useCalendar = () => {
   const [currentDate, setCurrentDate] = React.useState(new Date());
   const totalMonthDays = getDaysInMonth(currentDate);
 
-  const prevDayList = Array.from({
-    length: Math.max(0, currentDate.getDay() - 1),
-  }).map(() => DEFAULT_TRASH_VALUE);
+  const firstDayOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    1
+  ).getDay();
+
+  const prevDayList = Array.from({ length: firstDayOfMonth }).map(
+    () => DEFAULT_TRASH_VALUE
+  );
+
   const currentDayList = Array.from({ length: totalMonthDays }).map(
     (_, i) => i + 1
   );
