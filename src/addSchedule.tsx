@@ -5,14 +5,21 @@ import { uid } from "uid";
 import { useSchedule } from "./scheduleProvider";
 import { ScheduleData, ScheduleItem } from "./types";
 
-const saveDB = (dbPath: string, uuid: string, data: ScheduleItem) => {
-  set(ref(db, `${dbPath}/${uuid}`), data);
+const saveDB = (
+  user: string,
+  dbPath: string,
+  uuid: string,
+  data: ScheduleItem
+) => {
+  set(ref(db, `${user}/${dbPath}/${uuid}`), data);
 };
 
 const AddSchedule = ({
+  user,
   week,
   addWeek,
 }: {
+  user: string;
   week: ScheduleData;
   addWeek: React.Dispatch<React.SetStateAction<ScheduleData>>;
 }) => {
@@ -20,16 +27,12 @@ const AddSchedule = ({
   const [scheduleContent, setScheduleContent] = useState<string>("");
   const inputSchedule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    let newData: ScheduleItem = { scheduleContent: "", selectedDays: [] };
     const formData = new FormData(e.currentTarget);
     const selectedDays = formData.getAll("days");
-    if (scheduleContent === "" || selectedDays.length === 0) {
-      alert("스케줄을 입력해 주세요");
-      return;
-    }
-    let newData: ScheduleItem = { scheduleContent: "", selectedDays: [] };
     const uuid = uid();
     const dbPath = scheduleType === "주" ? "todo_week" : "todo_days";
-    saveDB(dbPath, uuid, { selectedDays, scheduleContent });
+    saveDB(user, dbPath, uuid, { selectedDays, scheduleContent });
     newData.scheduleContent = scheduleContent;
     newData.selectedDays = selectedDays;
     if (scheduleType === "주") {

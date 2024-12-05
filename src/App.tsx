@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import LoggChect from "./LoggCheck";
+import LoggCheck from "./LoggCheck";
 import AddSchedule from "./addSchedule";
 import Calender from "./calender";
 import { ScheduleProvider } from "./scheduleProvider";
@@ -11,11 +11,12 @@ import { ScheduleData } from "./types";
 function App() {
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [weekData, setWeekData] = useState<ScheduleData>({});
+  const [user, setUser] = useState<string>("");
   const [DayData, setDayData] = useState<ScheduleData>({});
   useEffect(() => {
     if (!isLogged) return;
     const dbRef = ref(db);
-    get(dbRef)
+    get(child(dbRef, `/${user}`))
       .then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
@@ -35,8 +36,9 @@ function App() {
       {isLogged ? (
         <div>
           <ScheduleProvider>
-            <AddSchedule week={weekData} addWeek={setWeekData} />
+            <AddSchedule user={user} week={weekData} addWeek={setWeekData} />
             <Calender
+              user={user}
               weekSchedules={weekData}
               deleteWeek={setWeekData}
               DaySchedules={DayData}
@@ -47,7 +49,7 @@ function App() {
       ) : (
         <div>
           <h1>로그인</h1>
-          <LoggChect checkLoggIn={setIsLogged} />
+          <LoggCheck setUser={setUser} checkLoggIn={setIsLogged} />
         </div>
       )}
     </div>

@@ -14,9 +14,11 @@ type WeekType = {
 };
 
 const WeekCalender = ({
+  user,
   Schedules,
   setSchedules,
 }: {
+  user: string;
   Schedules: ScheduleData;
   setSchedules: React.Dispatch<React.SetStateAction<ScheduleData>>;
 }) => {
@@ -56,7 +58,7 @@ const WeekCalender = ({
       const { [id]: _, ...updatedSchedules } = prevWeekSchedules;
       return updatedSchedules;
     });
-    remove(ref(db, `/todo_week/${id}`)).catch((error) => {
+    remove(ref(db, `${user}/todo_week/${id}`)).catch((error) => {
       console.error("Failed to remove data from Firebase:", error);
     });
   };

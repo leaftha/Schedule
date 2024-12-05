@@ -4,11 +4,13 @@ import { ScheduleData } from "./types";
 import WeekCalender from "./weekCalender";
 
 const Calender = ({
+  user,
   weekSchedules,
   deleteWeek,
   DaySchedules,
   deleteDay,
 }: {
+  user: string;
   weekSchedules: ScheduleData;
   deleteWeek: React.Dispatch<React.SetStateAction<ScheduleData>>;
   DaySchedules: ScheduleData;
@@ -19,9 +21,17 @@ const Calender = ({
   return (
     <div>
       {scheduleType === "주" ? (
-        <WeekCalender Schedules={weekSchedules} setSchedules={deleteWeek} />
+        <WeekCalender
+          user={user}
+          Schedules={weekSchedules}
+          setSchedules={deleteWeek}
+        />
       ) : (
-        <DayCalender Schedules={DaySchedules} setSchedules={deleteDay} />
+        <DayCalender
+          user={user}
+          Schedules={DaySchedules}
+          setSchedules={deleteDay}
+        />
       )}
     </div>
   );
