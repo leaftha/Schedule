@@ -25,14 +25,20 @@ const AddSchedule = ({
 }) => {
   const { scheduleType, setScheduleType } = useSchedule();
   const [scheduleContent, setScheduleContent] = useState<string>("");
+  const [color, setColor] = useState<string>("");
+
   const inputSchedule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let newData: ScheduleItem = { scheduleContent: "", selectedDays: [] };
+    let newData: ScheduleItem = {
+      scheduleContent: "",
+      selectedDays: [],
+      color: "",
+    };
     const formData = new FormData(e.currentTarget);
     const selectedDays = formData.getAll("days");
     const uuid = uid();
     const dbPath = scheduleType === "주" ? "todo_week" : "todo_days";
-    saveDB(user, dbPath, uuid, { selectedDays, scheduleContent });
+    saveDB(user, dbPath, uuid, { selectedDays, scheduleContent, color });
     newData.scheduleContent = scheduleContent;
     newData.selectedDays = selectedDays;
     if (scheduleType === "주") {
@@ -98,6 +104,11 @@ const AddSchedule = ({
             <input name="days" type="date" />
           </div>
         )}
+        <input
+          type="color"
+          value={color}
+          onChange={(e) => setColor(e.target.value)}
+        />
         <input value={scheduleContent} onChange={changeInput} />
         <button type="submit">추가</button>
       </form>

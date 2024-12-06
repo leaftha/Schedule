@@ -1,5 +1,6 @@
 export type ScheduleItem = {
   scheduleContent: string;
+  color: string;
   selectedDays: string[] | FormDataEntryValue[]; // 날짜 문자열 배열
 };
 

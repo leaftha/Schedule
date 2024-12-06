@@ -22,10 +22,14 @@ const DayCalendar = ({
   setSchedules: React.Dispatch<React.SetStateAction<ScheduleData>>;
 }) => {
   const { weekCalendarList, goToPrevMonth, goToNextMonth } = useCalendar();
-  const [schedule, setSchedule] = useState<ScheduleItem[]>([]);
-  const [date, setDate] = useState<Array<string>>([]);
+  // const [schedule, setSchedule] = useState<ScheduleItem[]>([]);
+  const [date, setDate] = useState<string[][]>([]);
 
-  const getDatesInRange = (startDate: string, endDate: string) => {
+  const getDatesInRange = (
+    startDate: string,
+    endDate: string,
+    color: string
+  ) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
 
@@ -37,34 +41,34 @@ const DayCalendar = ({
     const dates = [];
     const date = new Date(start);
     while (date <= end) {
-      dates.push(date.toISOString().split("T")[0]); // yyyy-mm-dd 형식
+      dates.push([date.toISOString().split("T")[0], color]); // yyyy-mm-dd 형식
       date.setDate(date.getDate() + 1);
     }
     return dates;
   };
 
   useEffect(() => {
-    const newArr: ScheduleItem[] = [];
-    const newDate: Array<string> = [];
+    // const newArr: ScheduleItem[] = [];
+    const newDate: Array<string[]> = [];
     for (const key in Schedules) {
       const { scheduleContent, selectedDays } = Schedules[key];
       if (selectedDays.length >= 2) {
         const getDate = getDatesInRange(
           String(selectedDays[0]),
-          String(selectedDays[1])
+          String(selectedDays[1]),
+          Schedules[key].color
         );
-        newArr.push({
-          id: key,
-          content: scheduleContent,
-          date: getDate,
-        });
+        // newArr.push({
+        //   id: key,
+        //   content: scheduleContent,
+        //   date: getDate,
+        // });
         newDate.push(...getDate);
       }
     }
     setDate(newDate);
-    setSchedule(newArr);
+    // setSchedule(newArr);
   }, [Schedules]);
-
   const removeData = (id: string) => {
     setSchedules((prevWeekSchedules) => {
       const { [id]: _, ...updatedSchedules } = prevWeekSchedules;
@@ -81,16 +85,22 @@ const DayCalendar = ({
       {weekCalendarList.map((week, weekIdx) => (
         <div className={style.calender} key={`week-${weekIdx}`}>
           {week.map((day, dayIdx) => {
-            const isScheduled = date.includes(`${day}`);
+            let isScheduled: boolean = false;
+            let curColor: string = "";
+            for (let [cur, color] of date) {
+              if (cur === day) {
+                isScheduled = true;
+                curColor = color;
+              }
+            }
 
             return (
               <div key={`day-${dayIdx}`}>
                 <p>{day !== 0 ? String(day).split("-")[2] : ""}</p>
-                {isScheduled && <p style={{ color: "red" }}>일정 있음</p>}
+                {isScheduled && <div style={{ color: curColor }}>일정</div>}
               </div>
             );
           })}
-          <hr />
         </div>
       ))}
     </div>
