@@ -4,6 +4,8 @@ import { db } from "./firebase";
 import { ScheduleData } from "./types";
 import useCalendar from "./useCalender";
 
+import style from "./dayCalender.module.css";
+
 interface ScheduleItem {
   id: string;
   content: string;
@@ -73,11 +75,11 @@ const DayCalendar = ({
     });
   };
   return (
-    <div>
+    <div className={style.main}>
       <button onClick={goToPrevMonth}>Previous Month</button>
       <button onClick={goToNextMonth}>Next Month</button>
       {weekCalendarList.map((week, weekIdx) => (
-        <div key={`week-${weekIdx}`}>
+        <div className={style.calender} key={`week-${weekIdx}`}>
           {week.map((day, dayIdx) => {
             const isScheduled = date.includes(`${day}`);
 
