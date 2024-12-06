@@ -6,11 +6,11 @@ import useCalendar from "./useCalender";
 
 import style from "./dayCalender.module.css";
 
-interface ScheduleItem {
-  id: string;
-  content: string;
-  date: string[];
-}
+// interface ScheduleItem {
+//   id: string;
+//   content: string;
+//   date: string[];
+// }
 
 const DayCalendar = ({
   user,
@@ -69,6 +69,9 @@ const DayCalendar = ({
     setDate(newDate);
     // setSchedule(newArr);
   }, [Schedules]);
+
+  const weekTitle = ["일", "월", "화", "수", "목", "금", "토"];
+
   const removeData = (id: string) => {
     setSchedules((prevWeekSchedules) => {
       const { [id]: _, ...updatedSchedules } = prevWeekSchedules;
@@ -82,22 +85,23 @@ const DayCalendar = ({
     <div className={style.main}>
       <button onClick={goToPrevMonth}>Previous Month</button>
       <button onClick={goToNextMonth}>Next Month</button>
+
       {weekCalendarList.map((week, weekIdx) => (
         <div className={style.calender} key={`week-${weekIdx}`}>
           {week.map((day, dayIdx) => {
-            let isScheduled: boolean = false;
+            let isScheduled: string[] = [];
             let curColor: string = "";
             for (let [cur, color] of date) {
               if (cur === day) {
-                isScheduled = true;
-                curColor = color;
+                isScheduled.push(color);
               }
             }
-
             return (
               <div key={`day-${dayIdx}`}>
                 <p>{day !== 0 ? String(day).split("-")[2] : ""}</p>
-                {isScheduled && <div style={{ color: curColor }}>일정</div>}
+                {isScheduled.map((color, idx) => (
+                  <div style={{ color: color }}>일정</div>
+                ))}
               </div>
             );
           })}
