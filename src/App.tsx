@@ -30,7 +30,6 @@ function App() {
         console.error(error);
       });
   }, [isLogged]);
-  console.log(weekData);
   return (
     <div>
       {isLogged ? (
