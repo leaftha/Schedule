@@ -12,7 +12,7 @@ function App() {
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [weekData, setWeekData] = useState<ScheduleData>({});
   const [user, setUser] = useState<string>("");
-  const [DayData, setDayData] = useState<ScheduleData>({});
+  const [dayData, setDayData] = useState<ScheduleData>({});
   useEffect(() => {
     if (!isLogged) return;
     const dbRef = ref(db);
@@ -35,12 +35,18 @@ function App() {
       {isLogged ? (
         <div>
           <ScheduleProvider>
-            <AddSchedule user={user} week={weekData} addWeek={setWeekData} />
+            <AddSchedule
+              user={user}
+              week={weekData}
+              addWeek={setWeekData}
+              day={dayData}
+              addDay={setDayData}
+            />
             <Calender
               user={user}
               weekSchedules={weekData}
               deleteWeek={setWeekData}
-              DaySchedules={DayData}
+              DaySchedules={dayData}
               deleteDay={setDayData}
             />
           </ScheduleProvider>

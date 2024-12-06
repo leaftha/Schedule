@@ -85,28 +85,35 @@ const DayCalendar = ({
     <div className={style.main}>
       <button onClick={goToPrevMonth}>Previous Month</button>
       <button onClick={goToNextMonth}>Next Month</button>
-
-      {weekCalendarList.map((week, weekIdx) => (
-        <div className={style.calender} key={`week-${weekIdx}`}>
-          {week.map((day, dayIdx) => {
+      <div className={style.calendar}>
+        {/* 요일 제목 */}
+        {weekTitle.map((item, idx) => (
+          <div key={`title-${idx}`} className={style.weekTitle}>
+            <h1>{item}</h1>
+          </div>
+        ))}
+        {/* 날짜 */}
+        {weekCalendarList.map((week, weekIdx) =>
+          week.map((day, dayIdx) => {
             let isScheduled: string[] = [];
-            let curColor: string = "";
             for (let [cur, color] of date) {
               if (cur === day) {
                 isScheduled.push(color);
               }
             }
             return (
-              <div key={`day-${dayIdx}`}>
+              <div key={`day-${weekIdx}-${dayIdx}`} className={style.day}>
                 <p>{day !== 0 ? String(day).split("-")[2] : ""}</p>
                 {isScheduled.map((color, idx) => (
-                  <div style={{ color: color }}>일정</div>
+                  <div key={`color-${idx}`} style={{ color: color }}>
+                    일정
+                  </div>
                 ))}
               </div>
             );
-          })}
-        </div>
-      ))}
+          })
+        )}
+      </div>
     </div>
   );
 };

@@ -18,10 +18,14 @@ const AddSchedule = ({
   user,
   week,
   addWeek,
+  day,
+  addDay,
 }: {
   user: string;
   week: ScheduleData;
   addWeek: React.Dispatch<React.SetStateAction<ScheduleData>>;
+  day: ScheduleData;
+  addDay: React.Dispatch<React.SetStateAction<ScheduleData>>;
 }) => {
   const { scheduleType, setScheduleType } = useSchedule();
   const [scheduleContent, setScheduleContent] = useState<string>("");
@@ -41,13 +45,20 @@ const AddSchedule = ({
     saveDB(user, dbPath, uuid, { selectedDays, scheduleContent, color });
     newData.scheduleContent = scheduleContent;
     newData.selectedDays = selectedDays;
+    newData.color = color;
+    let newSchedule = {};
     if (scheduleType === "주") {
-      const newWeek = {
+      newSchedule = {
         ...week,
         [uuid]: newData,
       };
-      addWeek(newWeek);
+      addWeek(newSchedule);
     } else {
+      newSchedule = {
+        ...day,
+        [uuid]: newData,
+      };
+      addDay(newSchedule);
     }
     setScheduleContent("");
   };

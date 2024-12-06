@@ -1,11 +1,7 @@
-.main {
-  /* display: flex; */
-}
-
-.calender {
+.calendar {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-}
-
-.week {
+  grid-template-rows: auto 1fr;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px; /* 각 셀 간격 추가 */
+  text-align: center;
 }
