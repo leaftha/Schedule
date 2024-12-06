@@ -19,8 +19,9 @@ const DayCalendar = ({
   Schedules: ScheduleData;
   setSchedules: React.Dispatch<React.SetStateAction<ScheduleData>>;
 }) => {
-  const { weekCalendarList } = useCalendar();
+  const { weekCalendarList, goToPrevMonth, goToNextMonth } = useCalendar();
   const [schedule, setSchedule] = useState<ScheduleItem[]>([]);
+  const [date, setDate] = useState<Array<string>>([]);
 
   const getDatesInRange = (startDate: string, endDate: string) => {
     const start = new Date(startDate);
@@ -42,19 +43,23 @@ const DayCalendar = ({
 
   useEffect(() => {
     const newArr: ScheduleItem[] = [];
+    const newDate: Array<string> = [];
     for (const key in Schedules) {
       const { scheduleContent, selectedDays } = Schedules[key];
       if (selectedDays.length >= 2) {
+        const getDate = getDatesInRange(
+          String(selectedDays[0]),
+          String(selectedDays[1])
+        );
         newArr.push({
           id: key,
           content: scheduleContent,
-          date: getDatesInRange(
-            String(selectedDays[0]),
-            String(selectedDays[1])
-          ),
+          date: getDate,
         });
+        newDate.push(...getDate);
       }
     }
+    setDate(newDate);
     setSchedule(newArr);
   }, [Schedules]);
 
@@ -67,25 +72,20 @@ const DayCalendar = ({
       console.error("Failed to remove data from Firebase:", error);
     });
   };
-
+  console.log(date);
   return (
     <div>
+      <button onClick={goToPrevMonth}>Previous Month</button>
+      <button onClick={goToNextMonth}>Next Month</button>
       {weekCalendarList.map((week, weekIdx) => (
         <div key={`week-${weekIdx}`}>
           {week.map((day, dayIdx) => {
-            // const daySchedules = schedule.filter((item) =>
-            //   item.date.includes(String(day))
-            // );
-            // console.log(schedule);
+            const isScheduled = date.includes(`${day}`);
+
             return (
               <div key={`day-${dayIdx}`}>
-                <p>{day}</p>
-                {/* {daySchedules.map((item) => (
-                  <div key={item.id} style={{ color: "red" }}>
-                    <p>{item.content}</p>
-                    <button onClick={() => removeData(item.id)}>Delete</button>
-                  </div>
-                ))} */}
+                <p>{day !== 0 ? day : ""}</p>
+                {isScheduled && <p style={{ color: "red" }}>일정 있음</p>}
               </div>
             );
           })}
