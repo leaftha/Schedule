@@ -72,7 +72,6 @@ const DayCalendar = ({
       console.error("Failed to remove data from Firebase:", error);
     });
   };
-  console.log(date);
   return (
     <div>
       <button onClick={goToPrevMonth}>Previous Month</button>
@@ -84,7 +83,7 @@ const DayCalendar = ({
 
             return (
               <div key={`day-${dayIdx}`}>
-                <p>{day !== 0 ? day : ""}</p>
+                <p>{day !== 0 ? String(day).split("-")[2] : ""}</p>
                 {isScheduled && <p style={{ color: "red" }}>일정 있음</p>}
               </div>
             );
