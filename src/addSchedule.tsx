@@ -101,6 +101,10 @@ const AddSchedule = ({
         {scheduleType === "주" ? (
           <div>
             <label>
+              일
+              <input type="checkbox" name="days" value="일" />
+            </label>
+            <label>
               월
               <input type="checkbox" name="days" value="월" />
             </label>
@@ -123,10 +127,6 @@ const AddSchedule = ({
             <label>
               토
               <input type="checkbox" name="days" value="토" />
-            </label>
-            <label>
-              일
-              <input type="checkbox" name="days" value="일" />
             </label>
           </div>
         ) : (
