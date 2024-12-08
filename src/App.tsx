@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import style from "./App.module.css";
 import LoggCheck from "./LoggCheck";
 import AddSchedule from "./addSchedule";
 import Calender from "./calender";
@@ -33,21 +33,21 @@ function App() {
   return (
     <div>
       {isLogged ? (
-        <div>
+        <div className={style.main}>
           <ScheduleProvider>
-            <AddSchedule
-              user={user}
-              week={weekData}
-              addWeek={setWeekData}
-              day={dayData}
-              addDay={setDayData}
-            />
             <Calender
               user={user}
               weekSchedules={weekData}
               deleteWeek={setWeekData}
               DaySchedules={dayData}
               deleteDay={setDayData}
+            />
+            <AddSchedule
+              user={user}
+              week={weekData}
+              addWeek={setWeekData}
+              day={dayData}
+              addDay={setDayData}
             />
           </ScheduleProvider>
         </div>
