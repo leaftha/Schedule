@@ -19,7 +19,7 @@ const Calender = ({
   const { scheduleType } = useSchedule();
 
   return (
-    <div>
+    <>
       {scheduleType === "주" ? (
         <WeekCalender
           user={user}
@@ -33,7 +33,7 @@ const Calender = ({
           setSchedules={deleteDay}
         />
       )}
-    </div>
+    </>
   );
 };
 

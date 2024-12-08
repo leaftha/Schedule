@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { remove, ref } from "firebase/database";
 import { db } from "./firebase";
+import style from "./weekCalender.module.css";
 import { ScheduleData } from "./types";
 
 type WeekType = {
@@ -64,15 +65,17 @@ const WeekCalender = ({
   };
 
   return (
-    <div>
+    <div className={style.main}>
       {Object.entries(weekClassify).map(([day, tasks]) => (
-        <div key={day}>
-          <h3>{day}</h3>
-          <ul>
+        <div className={style.content} key={day}>
+          <h3 className={style.title}>{day}</h3>
+          <ul className={style.schedule}>
             {tasks.map((task, index) => (
-              <div key={index}>
+              <div className={style.scheduleContent} key={index}>
                 <p>{task[0]}</p>
-                <p onClick={() => removeData(task[1])}>X</p>
+                {/* <p className={style.btn} onClick={() => removeData(task[1])}>
+                  X
+                </p> */}
               </div>
             ))}
           </ul>
