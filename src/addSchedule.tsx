@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ref, set } from "firebase/database";
+import { ref, set, remove } from "firebase/database";
 import { db } from "./firebase";
 import { uid } from "uid";
 import { useSchedule } from "./scheduleProvider";
@@ -65,6 +65,28 @@ const AddSchedule = ({
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setScheduleContent(e.target.value);
   };
+
+  const removeData = (id: string) => {
+    if (scheduleType === "주") {
+      addWeek((prevWeekSchedules) => {
+        const { [id]: _, ...updatedSchedules } = prevWeekSchedules;
+        return updatedSchedules;
+      });
+      remove(ref(db, `${user}/todo_week/${id}`)).catch((error) => {
+        console.error("Failed to remove data from Firebase:", error);
+      });
+    } else {
+      addDay((prevWeekSchedules) => {
+        const { [id]: _, ...updatedSchedules } = prevWeekSchedules;
+        return updatedSchedules;
+      });
+      remove(ref(db, `${user}/todo_week/${id}`)).catch((error) => {
+        console.error("Failed to remove data from Firebase:", error);
+      });
+    }
+  };
+
+  console.log(week);
   return (
     <div>
       <form onSubmit={inputSchedule}>
@@ -123,6 +145,18 @@ const AddSchedule = ({
         <input value={scheduleContent} onChange={changeInput} />
         <button type="submit">추가</button>
       </form>
+      {scheduleType === "주" ? (
+        <ul>
+          {Object.entries(week).map(([day, tasks]) => (
+            <li key={day}>
+              <h1>{week[day].scheduleContent}</h1>
+              <p onClick={() => removeData(day)}>X</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };
