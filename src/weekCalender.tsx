@@ -54,15 +54,15 @@ const WeekCalender = ({
     setWeekClassify(newWeekClassify);
   }, [Schedules]);
 
-  const removeData = (id: string) => {
-    setSchedules((prevWeekSchedules) => {
-      const { [id]: _, ...updatedSchedules } = prevWeekSchedules;
-      return updatedSchedules;
-    });
-    remove(ref(db, `${user}/todo_week/${id}`)).catch((error) => {
-      console.error("Failed to remove data from Firebase:", error);
-    });
-  };
+  // const removeData = (id: string) => {
+  //   setSchedules((prevWeekSchedules) => {
+  //     const { [id]: _, ...updatedSchedules } = prevWeekSchedules;
+  //     return updatedSchedules;
+  //   });
+  //   remove(ref(db, `${user}/todo_week/${id}`)).catch((error) => {
+  //     console.error("Failed to remove data from Firebase:", error);
+  //   });
+  // };
 
   return (
     <div className={style.main}>

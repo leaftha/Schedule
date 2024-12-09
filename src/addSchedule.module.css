@@ -56,3 +56,11 @@
   cursor: pointer;
   transition: 0.2s;
 }
+
+.dayBtn:first-child {
+  color: red;
+}
+
+.dayBtn:last-child {
+  color: blue;
+}

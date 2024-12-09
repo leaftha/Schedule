@@ -19,6 +19,13 @@
   font-weight: bold;
 }
 
+.content:first-child {
+  color: red;
+}
+.content:last-child {
+  color: blue;
+}
+
 .schedule {
   display: flex;
   flex-direction: column;
@@ -30,6 +37,7 @@
 
 .scheduleContent {
   display: flex;
+  color: black;
   align-items: center;
   justify-content: center;
   margin: 50px 0;
