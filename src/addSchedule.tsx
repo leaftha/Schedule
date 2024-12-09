@@ -141,8 +141,14 @@ const AddSchedule = ({
           value={color}
           onChange={(e) => setColor(e.target.value)}
         />
-        <input value={scheduleContent} onChange={changeInput} />
-        <button type="submit">추가</button>
+        <input
+          className={style.inpuBox}
+          value={scheduleContent}
+          onChange={changeInput}
+        />
+        <button className={style.inputBtn} type="submit">
+          추가
+        </button>
       </form>
       {scheduleType === "주" ? (
         <ul className={style.scheduleList}>
