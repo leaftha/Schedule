@@ -72,15 +72,6 @@ const DayCalendar = ({
 
   const weekTitle = ["일", "월", "화", "수", "목", "금", "토"];
 
-  const removeData = (id: string) => {
-    setSchedules((prevWeekSchedules) => {
-      const { [id]: _, ...updatedSchedules } = prevWeekSchedules;
-      return updatedSchedules;
-    });
-    remove(ref(db, `${user}/todo_days/${id}`)).catch((error) => {
-      console.error("Failed to remove data from Firebase:", error);
-    });
-  };
   return (
     <div className={style.main}>
       <button onClick={goToPrevMonth}>Previous Month</button>
