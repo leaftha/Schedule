@@ -4,6 +4,7 @@ import { db } from "./firebase";
 import { uid } from "uid";
 import { useSchedule } from "./scheduleProvider";
 import { ScheduleData, ScheduleItem } from "./types";
+import style from "./addSchedule.module.css";
 
 const saveDB = (
   user: string,
@@ -86,17 +87,24 @@ const AddSchedule = ({
     }
   };
 
-  console.log(week);
   return (
-    <div>
-      <form onSubmit={inputSchedule}>
-        <div>
-          <button type="button" onClick={() => setScheduleType("주")}>
+    <div className={style.main}>
+      <form className={style.inputForm} onSubmit={inputSchedule}>
+        <div className={style.btns}>
+          <h1
+            className={style.btn}
+            style={scheduleType != "주" ? { opacity: 0.5 } : { opacity: 1 }}
+            onClick={() => setScheduleType("주")}
+          >
             주
-          </button>
-          <button type="button" onClick={() => setScheduleType("월")}>
+          </h1>
+          <h1
+            className={style.btn}
+            style={scheduleType === "주" ? { opacity: 0.5 } : { opacity: 1 }}
+            onClick={() => setScheduleType("월")}
+          >
             월
-          </button>
+          </h1>
         </div>
         {scheduleType === "주" ? (
           <div>
@@ -146,11 +154,13 @@ const AddSchedule = ({
         <button type="submit">추가</button>
       </form>
       {scheduleType === "주" ? (
-        <ul>
+        <ul className={style.scheduleList}>
           {Object.entries(week).map(([day, tasks]) => (
-            <li key={day}>
+            <li className={style.scheduleItem} key={day}>
               <h1>{week[day].scheduleContent}</h1>
-              <p onClick={() => removeData(day)}>X</p>
+              <p className={style.deleteBtn} onClick={() => removeData(day)}>
+                X
+              </p>
             </li>
           ))}
         </ul>
