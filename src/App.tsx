@@ -31,7 +31,7 @@ function App() {
       });
   }, [isLogged]);
   return (
-    <div>
+    <>
       {isLogged ? (
         <div className={style.main}>
           <ScheduleProvider>
@@ -52,12 +52,11 @@ function App() {
           </ScheduleProvider>
         </div>
       ) : (
-        <div>
-          <h1>로그인</h1>
+        <div className={style.loginPage}>
           <LoggCheck setUser={setUser} checkLoggIn={setIsLogged} />
         </div>
       )}
-    </div>
+    </>
   );
 }
 

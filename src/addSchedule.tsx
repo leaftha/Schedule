@@ -31,6 +31,7 @@ const AddSchedule = ({
   const { scheduleType, setScheduleType } = useSchedule();
   const [scheduleContent, setScheduleContent] = useState<string>("");
   const [color, setColor] = useState<string>("");
+  const [selectedDays, setSelectedDays] = useState<string[]>([]);
 
   const inputSchedule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,8 +40,8 @@ const AddSchedule = ({
       selectedDays: [],
       color: "",
     };
-    const formData = new FormData(e.currentTarget);
-    const selectedDays = formData.getAll("days");
+    // const formData = new FormData(e.currentTarget);
+    // const selectedDays = formData.getAll("days");
     const uuid = uid();
     const dbPath = scheduleType === "주" ? "todo_week" : "todo_days";
     saveDB(user, dbPath, uuid, { selectedDays, scheduleContent, color });
@@ -87,13 +88,19 @@ const AddSchedule = ({
     }
   };
 
+  const toggleDay = (day: string) => {
+    setSelectedDays((prev) =>
+      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
+    );
+  };
+
   return (
     <div className={style.main}>
       <form className={style.inputForm} onSubmit={inputSchedule}>
         <div className={style.btns}>
           <h1
             className={style.btn}
-            style={scheduleType != "주" ? { opacity: 0.5 } : { opacity: 1 }}
+            style={scheduleType !== "주" ? { opacity: 0.5 } : { opacity: 1 }}
             onClick={() => setScheduleType("주")}
           >
             주
@@ -107,35 +114,19 @@ const AddSchedule = ({
           </h1>
         </div>
         {scheduleType === "주" ? (
-          <div>
-            <label>
-              일
-              <input type="checkbox" name="days" value="일" />
-            </label>
-            <label>
-              월
-              <input type="checkbox" name="days" value="월" />
-            </label>
-            <label>
-              화
-              <input type="checkbox" name="days" value="화" />
-            </label>
-            <label>
-              수
-              <input type="checkbox" name="days" value="수" />
-            </label>
-            <label>
-              목
-              <input type="checkbox" name="days" value="목" />
-            </label>
-            <label>
-              금
-              <input type="checkbox" name="days" value="금" />
-            </label>
-            <label>
-              토
-              <input type="checkbox" name="days" value="토" />
-            </label>
+          <div className={style.days}>
+            {["일", "월", "화", "수", "목", "금", "토"].map((day) => (
+              <h1
+                key={day}
+                style={
+                  selectedDays.includes(day) ? { opacity: 1 } : { opacity: 0.5 }
+                }
+                className={style.dayBtn}
+                onClick={() => toggleDay(day)}
+              >
+                {day}
+              </h1>
+            ))}
           </div>
         ) : (
           <div>

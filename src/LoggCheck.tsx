@@ -1,6 +1,5 @@
-import { ref, child, get } from "firebase/database";
-import { db } from "./firebase";
 import { useState, useEffect } from "react";
+import style from "./LoggCheck.module.css";
 
 const LoggCheck = ({
   checkLoggIn,
@@ -40,11 +39,18 @@ const LoggCheck = ({
   };
 
   return (
-    <div>
+    <div className={style.main}>
+      <h1 className={style.title}>사용자 이름</h1>
       <form onSubmit={cheackPassword}>
-        <label>이름</label>
-        <input type="string" value={id} onChange={changeInput} />
-        <button>로그인</button>
+        <input
+          className={style.inputBox}
+          type="string"
+          value={id}
+          onChange={changeInput}
+        />
+        <button className={style.btn}>
+          <span>로그인</span>
+        </button>
       </form>
     </div>
   );

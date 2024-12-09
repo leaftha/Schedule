@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&family=Noto+Serif+KR:wght@200..900&display=swap");
+
+.main {
+  display: flex;
+  font-family: "Noto Serif KR", serif;
+
+  flex-direction: column;
+  background-color: #ffffff;
+  width: 20%;
+  height: 50%;
+  border-radius: 2%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.title {
+  font-size: 50px;
+  font-weight: bold;
+  margin: 40px 0;
+}
+
+.inputBox {
+  padding: 20px;
+  font-size: 20px;
+}
+
+.btn {
+  color: #ffffff;
+  font-family: "Noto Serif KR", serif;
+
+  background: #111111;
+  padding: 17px;
+  font-size: 20px;
+  border: 1px solid black;
+  margin: 0 10px;
+  /* box-shadow: 0px 5px 0px 0px #111111; */
+}

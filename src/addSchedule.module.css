@@ -44,3 +44,14 @@
   margin-left: 20px;
   cursor: pointer;
 }
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  font-size: 25px;
+  margin: 40px 0;
+}
+
+.dayBtn {
+  cursor: pointer;
+}
