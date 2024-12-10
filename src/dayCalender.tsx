@@ -49,7 +49,6 @@ const DayCalendar = ({
   };
 
   useEffect(() => {
-    // const newArr: ScheduleItem[] = [];
     const newDate: Array<string[]> = [];
 
     for (const key in Schedules) {
@@ -60,16 +59,11 @@ const DayCalendar = ({
           String(selectedDays[1]),
           Schedules[key].color
         );
-        // newArr.push({
-        //   id: key,
-        //   content: scheduleContent,
-        //   date: getDate,
-        // });
+
         newDate.push(...getDate);
       }
     }
     setDate(newDate);
-    // setSchedule(newArr);
   }, [Schedules]);
 
   const weekTitle = ["일", "월", "화", "수", "목", "금", "토"];
@@ -77,7 +71,7 @@ const DayCalendar = ({
     <div className={style.main}>
       <div className={style.month}>
         <h1>
-          {currentDate.getFullYear()}.{currentDate.getMonth() + 1}
+          {currentDate.getFullYear()} : {currentDate.getMonth() + 1}
         </h1>
       </div>
       <div className={style.btns}>

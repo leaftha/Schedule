@@ -51,31 +51,35 @@ const AddSchedule = ({
 
     const uuid = uid();
     const dbPath = scheduleType === "주" ? "todo_week" : "todo_days";
+
     if (scheduleType === "주") {
       saveDB(user, dbPath, uuid, { selectedDays, scheduleContent, color });
-    } else {
-      const selectedDays = [startDays, endDays];
-      saveDB(user, dbPath, uuid, { selectedDays, scheduleContent, color });
-    }
-    newData.scheduleContent = scheduleContent;
-    newData.selectedDays = selectedDays;
-    newData.color = color;
-    let newSchedule = {};
-    if (scheduleType === "주") {
+      newData.scheduleContent = scheduleContent;
+      newData.selectedDays = selectedDays;
+      newData.color = color;
+      let newSchedule = {};
       newSchedule = {
         ...week,
         [uuid]: newData,
       };
       addWeek(newSchedule);
     } else {
+      const selectedDays = [startDays, endDays];
+      newData.scheduleContent = scheduleContent;
+      newData.selectedDays = selectedDays;
+      newData.color = color;
+      let newSchedule = {};
+      saveDB(user, dbPath, uuid, { selectedDays, scheduleContent, color });
       newSchedule = {
         ...day,
         [uuid]: newData,
       };
       addDay(newSchedule);
     }
+
     setScheduleContent("");
   };
+
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setScheduleContent(e.target.value);
   };
