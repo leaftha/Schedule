@@ -76,7 +76,9 @@ const DayCalendar = ({
   return (
     <div className={style.main}>
       <div className={style.month}>
-        <h1>{currentDate.getMonth() + 1}</h1>
+        <h1>
+          {currentDate.getFullYear()}.{currentDate.getMonth() + 1}
+        </h1>
       </div>
       <div className={style.btns}>
         <button className={style.btn} onClick={goToPrevMonth}>
