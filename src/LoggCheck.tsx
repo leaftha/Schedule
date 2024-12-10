@@ -48,9 +48,7 @@ const LoggCheck = ({
           value={id}
           onChange={changeInput}
         />
-        <button className={style.btn}>
-          <span>로그인</span>
-        </button>
+        <button className={style.btn}>로그인</button>
       </form>
     </div>
   );
