@@ -35,6 +35,10 @@ const AddSchedule = ({
 
   const inputSchedule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (scheduleContent === "" || selectedDays.length === 0) {
+      alert("날짜와 내용을 입력해 주세요");
+      return;
+    }
     let newData: ScheduleItem = {
       scheduleContent: "",
       selectedDays: [],
@@ -144,6 +148,7 @@ const AddSchedule = ({
         <input
           className={style.inpuBox}
           value={scheduleContent}
+          placeholder="내용 입력해주세요"
           onChange={changeInput}
         />
         <button className={style.inputBtn} type="submit">
