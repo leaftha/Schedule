@@ -1,7 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&family=Noto+Serif+KR:wght@200..900&display=swap");
+
+.main {
+  font-family: "Noto Serif KR", serif;
+
+  margin-top: 100px;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 50px 0;
+}
+
+.btn {
+  background: none;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+}
+
 .calendar {
   display: grid;
   grid-template-rows: auto 1fr;
   grid-template-columns: repeat(7, 1fr);
   gap: 5px;
+  font-size: 30px;
   text-align: center;
+}
+
+.weekTitle {
+  margin: 40px 0;
+  /* display: flex; */
+}
+
+.day {
+  margin: 30px;
+}
+
+.daySchedule {
+  width: 100%;
+  height: 10px;
 }

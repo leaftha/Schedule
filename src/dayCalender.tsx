@@ -52,19 +52,19 @@ const DayCalendar = ({
     const newDate: Array<string[]> = [];
     for (const key in Schedules) {
       const { scheduleContent, selectedDays } = Schedules[key];
-      if (selectedDays.length >= 2) {
-        const getDate = getDatesInRange(
-          String(selectedDays[0]),
-          String(selectedDays[1]),
-          Schedules[key].color
-        );
-        // newArr.push({
-        //   id: key,
-        //   content: scheduleContent,
-        //   date: getDate,
-        // });
-        newDate.push(...getDate);
-      }
+      // if (selectedDays.length >= 2) {
+      const getDate = getDatesInRange(
+        String(selectedDays[0]),
+        String(selectedDays[1]),
+        Schedules[key].color
+      );
+      // newArr.push({
+      //   id: key,
+      //   content: scheduleContent,
+      //   date: getDate,
+      // });
+      newDate.push(...getDate);
+      // }
     }
     setDate(newDate);
     // setSchedule(newArr);
@@ -74,8 +74,14 @@ const DayCalendar = ({
 
   return (
     <div className={style.main}>
-      <button onClick={goToPrevMonth}>Previous Month</button>
-      <button onClick={goToNextMonth}>Next Month</button>
+      <div className={style.btns}>
+        <button className={style.btn} onClick={goToPrevMonth}>
+          저번 달
+        </button>
+        <button className={style.btn} onClick={goToNextMonth}>
+          다음 달
+        </button>
+      </div>
       <div className={style.calendar}>
         {/* 요일 제목 */}
         {weekTitle.map((item, idx) => (
@@ -96,9 +102,11 @@ const DayCalendar = ({
               <div key={`day-${weekIdx}-${dayIdx}`} className={style.day}>
                 <p>{day !== 0 ? String(day).split("-")[2] : ""}</p>
                 {isScheduled.map((color, idx) => (
-                  <div key={`color-${idx}`} style={{ color: color }}>
-                    일정
-                  </div>
+                  <div
+                    key={`color-${idx}`}
+                    className={style.daySchedule}
+                    style={{ background: color }}
+                  ></div>
                 ))}
               </div>
             );
