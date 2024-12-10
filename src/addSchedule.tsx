@@ -31,24 +31,32 @@ const AddSchedule = ({
   const { scheduleType, setScheduleType } = useSchedule();
   const [scheduleContent, setScheduleContent] = useState<string>("");
   const [color, setColor] = useState<string>("");
-  const [selectedDays, setSelectedDays] = useState<string[]>([]);
+  const [startDays, setStartDays] = useState<string>("");
+  const [endDays, setEndDays] = useState<string>("");
+  const [selectedDays, setSelectedDays] = useState<
+    string[] | FormDataEntryValue[]
+  >([]);
 
   const inputSchedule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (scheduleContent === "" || selectedDays.length === 0) {
-      alert("날짜와 내용을 입력해 주세요");
-      return;
-    }
+    // if (scheduleContent === "" || selectedDays.length === 0) {
+    //   alert("날짜와 내용을 입력해 주세요");
+    //   return;
+    // }
     let newData: ScheduleItem = {
       scheduleContent: "",
       selectedDays: [],
       color: "",
     };
-    // const formData = new FormData(e.currentTarget);
-    // const selectedDays = formData.getAll("days");
+
     const uuid = uid();
     const dbPath = scheduleType === "주" ? "todo_week" : "todo_days";
-    saveDB(user, dbPath, uuid, { selectedDays, scheduleContent, color });
+    if (scheduleType === "주") {
+      saveDB(user, dbPath, uuid, { selectedDays, scheduleContent, color });
+    } else {
+      const selectedDays = [startDays, endDays];
+      saveDB(user, dbPath, uuid, { selectedDays, scheduleContent, color });
+    }
     newData.scheduleContent = scheduleContent;
     newData.selectedDays = selectedDays;
     newData.color = color;
@@ -135,9 +143,19 @@ const AddSchedule = ({
         ) : (
           <div>
             <label>시작</label>
-            <input name="days" type="date" />
+            <input
+              value={startDays}
+              onChange={(e) => setStartDays(e.target.value)}
+              name="days"
+              type="date"
+            />
             <label>끝</label>
-            <input name="days" type="date" />
+            <input
+              value={endDays}
+              onChange={(e) => setEndDays(e.target.value)}
+              name="days"
+              type="date"
+            />
           </div>
         )}
         <input
