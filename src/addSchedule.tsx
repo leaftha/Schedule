@@ -144,16 +144,17 @@ const AddSchedule = ({
             ))}
           </div>
         ) : (
-          <div>
-            <label>시작</label>
+          <div className={style.addDay}>
             <input
+              className={style.DayInput}
               value={startDays}
               onChange={(e) => setStartDays(e.target.value)}
               name="days"
               type="date"
             />
-            <label>끝</label>
+            <h1 className={style.side}>~</h1>
             <input
+              className={style.DayInput}
               value={endDays}
               onChange={(e) => setEndDays(e.target.value)}
               name="days"
