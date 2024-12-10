@@ -52,9 +52,9 @@
 
 .scheduleItem {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
   margin: 10px 0;
-  /* justify-content: space-around; */
 }
 
 .deleteBtn {
@@ -80,4 +80,8 @@
 
 .dayBtn:last-child {
   color: blue;
+}
+.colorbox {
+  width: 20px;
+  height: 20px;
 }

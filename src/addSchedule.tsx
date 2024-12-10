@@ -30,7 +30,7 @@ const AddSchedule = ({
 }) => {
   const { scheduleType, setScheduleType } = useSchedule();
   const [scheduleContent, setScheduleContent] = useState<string>("");
-  const [color, setColor] = useState<string>("");
+  const [color, setColor] = useState<string>("#111111");
   const [startDays, setStartDays] = useState<string>("");
   const [endDays, setEndDays] = useState<string>("");
   const [selectedDays, setSelectedDays] = useState<
@@ -94,7 +94,7 @@ const AddSchedule = ({
         const { [id]: _, ...updatedSchedules } = prevWeekSchedules;
         return updatedSchedules;
       });
-      remove(ref(db, `${user}/todo_week/${id}`)).catch((error) => {
+      remove(ref(db, `${user}/todo_days/${id}`)).catch((error) => {
         console.error("Failed to remove data from Firebase:", error);
       });
     }
@@ -105,7 +105,6 @@ const AddSchedule = ({
       prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
     );
   };
-
   return (
     <div className={style.main}>
       <form className={style.inputForm} onSubmit={inputSchedule}>
@@ -185,7 +184,20 @@ const AddSchedule = ({
           ))}
         </ul>
       ) : (
-        <div></div>
+        <div>
+          {Object.entries(day).map(([idx, tasks]) => (
+            <li className={style.scheduleItem} key={idx}>
+              <div
+                className={style.colorbox}
+                style={{ background: day[idx].color }}
+              ></div>
+              <h1>{day[idx].scheduleContent}</h1>
+              <p className={style.deleteBtn} onClick={() => removeData(idx)}>
+                X
+              </p>
+            </li>
+          ))}
+        </div>
       )}
     </div>
   );
