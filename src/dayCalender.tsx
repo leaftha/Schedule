@@ -21,7 +21,8 @@ const DayCalendar = ({
   Schedules: ScheduleData;
   setSchedules: React.Dispatch<React.SetStateAction<ScheduleData>>;
 }) => {
-  const { weekCalendarList, goToPrevMonth, goToNextMonth } = useCalendar();
+  const { weekCalendarList, currentDate, goToPrevMonth, goToNextMonth } =
+    useCalendar();
   // const [schedule, setSchedule] = useState<ScheduleItem[]>([]);
   const [date, setDate] = useState<string[][]>([]);
 
@@ -50,30 +51,33 @@ const DayCalendar = ({
   useEffect(() => {
     // const newArr: ScheduleItem[] = [];
     const newDate: Array<string[]> = [];
+
     for (const key in Schedules) {
       const { scheduleContent, selectedDays } = Schedules[key];
-      // if (selectedDays.length >= 2) {
-      const getDate = getDatesInRange(
-        String(selectedDays[0]),
-        String(selectedDays[1]),
-        Schedules[key].color
-      );
-      // newArr.push({
-      //   id: key,
-      //   content: scheduleContent,
-      //   date: getDate,
-      // });
-      newDate.push(...getDate);
-      // }
+      if (selectedDays.length >= 2) {
+        const getDate = getDatesInRange(
+          String(selectedDays[0]),
+          String(selectedDays[1]),
+          Schedules[key].color
+        );
+        // newArr.push({
+        //   id: key,
+        //   content: scheduleContent,
+        //   date: getDate,
+        // });
+        newDate.push(...getDate);
+      }
     }
     setDate(newDate);
     // setSchedule(newArr);
   }, [Schedules]);
 
   const weekTitle = ["일", "월", "화", "수", "목", "금", "토"];
-
   return (
     <div className={style.main}>
+      <div className={style.month}>
+        <h1>{currentDate.getMonth() + 1}</h1>
+      </div>
       <div className={style.btns}>
         <button className={style.btn} onClick={goToPrevMonth}>
           저번 달
