@@ -6,6 +6,16 @@ import { useSchedule } from "./scheduleProvider";
 import { ScheduleData, ScheduleItem } from "./types";
 import style from "./addSchedule.module.css";
 
+const createNewData = (
+  scheduleContent: string,
+  selectedDays: string[] | FormDataEntryValue[],
+  color: string
+): ScheduleItem => ({
+  scheduleContent,
+  selectedDays,
+  color,
+});
+
 const saveDB = (
   user: string,
   dbPath: string,
@@ -15,6 +25,19 @@ const saveDB = (
   set(ref(db, `${user}/${dbPath}/${uuid}`), data);
 };
 
+const saveScheduleData = (
+  saveFn: React.Dispatch<React.SetStateAction<ScheduleData>>,
+  dbPath: string,
+  uuid: string,
+  user: string,
+  newData: ScheduleItem
+) => {
+  saveDB(user, dbPath, uuid, newData);
+  saveFn((prevSchedule) => ({
+    ...prevSchedule,
+    [uuid]: newData,
+  }));
+};
 const AddSchedule = ({
   user,
   week,
@@ -39,42 +62,22 @@ const AddSchedule = ({
 
   const inputSchedule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // if (scheduleContent === "" || selectedDays.length === 0) {
-    //   alert("날짜와 내용을 입력해 주세요");
-    //   return;
-    // }
-    let newData: ScheduleItem = {
-      scheduleContent: "",
-      selectedDays: [],
-      color: "",
-    };
-
     const uuid = uid();
     const dbPath = scheduleType === "주" ? "todo_week" : "todo_days";
 
-    if (scheduleType === "주") {
-      saveDB(user, dbPath, uuid, { selectedDays, scheduleContent, color });
-      newData.scheduleContent = scheduleContent;
-      newData.selectedDays = selectedDays;
-      newData.color = color;
-      let newSchedule = {};
-      newSchedule = {
-        ...week,
-        [uuid]: newData,
-      };
-      addWeek(newSchedule);
-    } else {
-      const selectedDays = [startDays, endDays];
-      newData.scheduleContent = scheduleContent;
-      newData.selectedDays = selectedDays;
-      newData.color = color;
-      let newSchedule = {};
-      saveDB(user, dbPath, uuid, { selectedDays, scheduleContent, color });
-      newSchedule = {
-        ...day,
-        [uuid]: newData,
-      };
-      addDay(newSchedule);
+    const newData =
+      scheduleType === "주"
+        ? createNewData(scheduleContent, selectedDays, color)
+        : createNewData(scheduleContent, [startDays, endDays], color);
+
+    const saveFn = scheduleType === "주" ? addWeek : addDay;
+
+    saveScheduleData(saveFn, dbPath, uuid, user, newData);
+
+    setScheduleContent("");
+    if (scheduleType !== "주") {
+      setStartDays("");
+      setEndDays("");
     }
 
     setScheduleContent("");
