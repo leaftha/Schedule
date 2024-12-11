@@ -37,11 +37,14 @@
 
 .scheduleContent {
   display: flex;
+  flex-direction: column;
   color: black;
   align-items: center;
   justify-content: center;
   margin: 50px 0;
 }
 
-.btn {
+.colorbox {
+  width: 90%;
+  height: 10px;
 }

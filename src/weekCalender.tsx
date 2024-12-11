@@ -47,7 +47,10 @@ const WeekCalender = ({
     for (let key in Schedules) {
       for (let week of Schedules[key].selectedDays) {
         const dayKey = week as keyof WeekType;
-        newWeekClassify[dayKey].push([Schedules[key].scheduleContent, key]);
+        newWeekClassify[dayKey].push([
+          Schedules[key].scheduleContent,
+          Schedules[key].color,
+        ]);
       }
     }
 
@@ -63,7 +66,7 @@ const WeekCalender = ({
   //     console.error("Failed to remove data from Firebase:", error);
   //   });
   // };
-
+  console.log(weekClassify);
   return (
     <div className={style.main}>
       {Object.entries(weekClassify).map(([day, tasks]) => (
@@ -73,9 +76,10 @@ const WeekCalender = ({
             {tasks.map((task, index) => (
               <div className={style.scheduleContent} key={index}>
                 <p>{task[0]}</p>
-                {/* <p className={style.btn} onClick={() => removeData(task[1])}>
-                  X
-                </p> */}
+                <div
+                  className={style.colorbox}
+                  style={{ background: task[1] }}
+                ></div>
               </div>
             ))}
           </ul>
