@@ -91,6 +91,7 @@ const AddSchedule = ({
     }
 
     setScheduleContent("");
+    setColor(`#${Math.round(Math.random() * 0xffffff).toString(16)}`);
   };
 
   const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
