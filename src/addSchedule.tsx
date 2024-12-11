@@ -181,28 +181,34 @@ const AddSchedule = ({
         <ul className={style.scheduleList}>
           {Object.entries(week).map(([day, tasks]) => (
             <li className={style.scheduleItem} key={day}>
+              <div
+                className={style.colorbox}
+                style={{ background: week[day].color }}
+              ></div>
               <h1>{week[day].scheduleContent}</h1>
-              <p className={style.deleteBtn} onClick={() => removeData(day)}>
-                X
-              </p>
+              <p
+                className={style.deleteBtn}
+                onClick={() => removeData(day)}
+              ></p>
             </li>
           ))}
         </ul>
       ) : (
-        <div>
+        <ul className={style.scheduleList}>
           {Object.entries(day).map(([idx, tasks]) => (
             <li className={style.scheduleItem} key={idx}>
               <div
                 className={style.colorbox}
                 style={{ background: day[idx].color }}
               ></div>
-              <h1>{day[idx].scheduleContent}</h1>
-              <p className={style.deleteBtn} onClick={() => removeData(idx)}>
-                X
-              </p>
+              <h1 className={style.content}>{day[idx].scheduleContent}</h1>
+              <p
+                className={style.deleteBtn}
+                onClick={() => removeData(idx)}
+              ></p>
             </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );

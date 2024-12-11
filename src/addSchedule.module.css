@@ -52,14 +52,29 @@
 
 .scheduleItem {
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
   margin: 10px 0;
+  width: 90%;
+}
+
+.content {
+  width: 80%;
+  justify-self: center;
 }
 
 .deleteBtn {
-  margin-left: 20px;
+  /* margin-left: 20px;/ */
   cursor: pointer;
+  width: 10%;
+  justify-self: flex-end;
+
+  /* justify-content: center; */
+}
+
+.deleteBtn::after {
+  content: "\00d7";
 }
 
 .days {
@@ -82,7 +97,7 @@
   color: blue;
 }
 .colorbox {
-  width: 20px;
+  width: 40px;
   height: 20px;
 }
 
