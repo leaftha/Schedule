@@ -62,6 +62,14 @@ const AddSchedule = ({
 
   const inputSchedule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (
+      scheduleContent === "" ||
+      (scheduleType === "주" && selectedDays.length === 0)
+    ) {
+      alert("날짜와 내용을 입력해 주세요");
+      return;
+    }
+
     const uuid = uid();
     const dbPath = scheduleType === "주" ? "todo_week" : "todo_days";
 
