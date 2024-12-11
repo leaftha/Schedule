@@ -34,6 +34,14 @@
   /* display: flex; */
 }
 
+.weekTitle:first-child {
+  color: red;
+}
+
+.weekTitle:nth-child(7) {
+  color: blue;
+}
+
 .day {
   margin: 30px;
 }
