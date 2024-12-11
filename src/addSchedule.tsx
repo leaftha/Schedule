@@ -53,7 +53,9 @@ const AddSchedule = ({
 }) => {
   const { scheduleType, setScheduleType } = useSchedule();
   const [scheduleContent, setScheduleContent] = useState<string>("");
-  const [color, setColor] = useState<string>("#111111");
+  const [color, setColor] = useState<string>(
+    `#${Math.round(Math.random() * 0xffffff).toString(16)}`
+  );
   const [startDays, setStartDays] = useState<string>("");
   const [endDays, setEndDays] = useState<string>("");
   const [selectedDays, setSelectedDays] = useState<
