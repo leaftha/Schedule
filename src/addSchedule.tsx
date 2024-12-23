@@ -51,7 +51,7 @@ const AddSchedule = ({
   day: ScheduleData;
   addDay: React.Dispatch<React.SetStateAction<ScheduleData>>;
 }) => {
-  const { scheduleType, setScheduleType } = useSchedule();
+  const { scheduleType, selectDay, setScheduleType } = useSchedule();
   const [scheduleContent, setScheduleContent] = useState<string>("");
   const [color, setColor] = useState<string>(
     `#${Math.round(Math.random() * 0xffffff).toString(16)}`
@@ -123,6 +123,7 @@ const AddSchedule = ({
       prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
     );
   };
+  console.log(selectDay);
   return (
     <div className={style.main}>
       <form className={style.inputForm} onSubmit={inputSchedule}>
@@ -215,7 +216,12 @@ const AddSchedule = ({
                 className={style.colorbox}
                 style={{ background: day[idx].color }}
               ></div>
-              <h1 className={style.content}>{day[idx].scheduleContent}</h1>
+              <h1
+                className={style.content}
+                style={selectDay === day[idx].color ? { fontSize: "30px" } : {}}
+              >
+                {day[idx].scheduleContent}
+              </h1>
               <p
                 className={style.deleteBtn}
                 onClick={() => removeData(idx)}

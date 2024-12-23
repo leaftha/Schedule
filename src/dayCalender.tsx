@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { remove, ref } from "firebase/database";
-import { db } from "./firebase";
 import { ScheduleData } from "./types";
 import useCalendar from "./useCalender";
+import { useSchedule } from "./scheduleProvider";
 
 import style from "./dayCalender.module.css";
 
@@ -25,6 +24,7 @@ const DayCalendar = ({
     useCalendar();
   // const [schedule, setSchedule] = useState<ScheduleItem[]>([]);
   const [date, setDate] = useState<string[][]>([]);
+  const { setSelectedDay } = useSchedule();
 
   const getDatesInRange = (
     startDate: string,
@@ -65,7 +65,7 @@ const DayCalendar = ({
     }
     setDate(newDate);
   }, [Schedules]);
-
+  console.log(Schedules);
   const weekTitle = ["일", "월", "화", "수", "목", "금", "토"];
   return (
     <div className={style.main}>
@@ -106,6 +106,9 @@ const DayCalendar = ({
                     key={`color-${idx}`}
                     className={style.daySchedule}
                     style={{ background: color }}
+                    onClick={() => {
+                      setSelectedDay(color);
+                    }}
                   ></div>
                 ))}
               </div>
