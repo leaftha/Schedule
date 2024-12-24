@@ -1,9 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Jua&family=Noto+Serif+KR:wght@200..900&display=swap");
-
 .main {
   display: flex;
-  font-family: "Noto Serif KR", serif;
-
   flex-direction: column;
   background-color: #ffffff;
   width: 30%;
@@ -27,8 +23,6 @@
 
 .btn {
   color: #ffffff;
-  font-family: "Noto Serif KR", serif;
-
   background: #111111;
   padding: 17px;
   font-size: 20px;
