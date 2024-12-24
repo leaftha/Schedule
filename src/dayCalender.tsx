@@ -65,7 +65,6 @@ const DayCalendar = ({
     }
     setDate(newDate);
   }, [Schedules]);
-  console.log(Schedules);
   const weekTitle = ["일", "월", "화", "수", "목", "금", "토"];
   return (
     <div className={style.main}>

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { remove, ref } from "firebase/database";
-import { db } from "./firebase";
 import style from "./weekCalender.module.css";
 import { ScheduleData } from "./types";
 
@@ -57,16 +55,6 @@ const WeekCalender = ({
     setWeekClassify(newWeekClassify);
   }, [Schedules]);
 
-  // const removeData = (id: string) => {
-  //   setSchedules((prevWeekSchedules) => {
-  //     const { [id]: _, ...updatedSchedules } = prevWeekSchedules;
-  //     return updatedSchedules;
-  //   });
-  //   remove(ref(db, `${user}/todo_week/${id}`)).catch((error) => {
-  //     console.error("Failed to remove data from Firebase:", error);
-  //   });
-  // };
-  console.log(weekClassify);
   return (
     <div className={style.main}>
       {Object.entries(weekClassify).map(([day, tasks]) => (

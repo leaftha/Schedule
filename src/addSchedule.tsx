@@ -123,7 +123,6 @@ const AddSchedule = ({
       prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
     );
   };
-  console.log(selectDay);
   return (
     <div className={style.main}>
       <form className={style.inputForm} onSubmit={inputSchedule}>

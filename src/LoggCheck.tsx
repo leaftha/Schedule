@@ -15,25 +15,6 @@ const LoggCheck = ({
 
   const cheackPassword = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // const dbRef = ref(db);
-    // get(child(dbRef, "/user_id"))
-    //   .then((snapshot) => {
-    //     if (snapshot.exists()) {
-    //       const UserData = snapshot.val();
-    //       console.log(UserData);
-    //       // if (UserData.id) {
-    //       //   checkLoggIn(true);
-    //       //   console.log("로그인 성공");
-    //       // } else {
-    //       //   console.log("로그인 실패");
-    //       // }
-    //     } else {
-    //       console.log("No data available");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
     setUser(id);
     checkLoggIn(true);
   };

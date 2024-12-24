@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import DayCalender from "./dayCalender";
 import { useSchedule } from "./scheduleProvider";
 import { ScheduleData } from "./types";
