@@ -4,7 +4,7 @@ import LoggCheck from "./LoggCheck";
 import AddSchedule from "./addSchedule";
 import Calender from "./calender";
 import { ScheduleProvider } from "./scheduleProvider";
-import { ref, child, get } from "firebase/database";
+import { ref, child, get, remove } from "firebase/database";
 import { db } from "./firebase";
 import { ScheduleData } from "./types";
 
@@ -15,13 +15,25 @@ function App() {
   const [dayData, setDayData] = useState<ScheduleData>({});
   useEffect(() => {
     if (!isLogged) return;
+    const todday = new Date();
     const dbRef = ref(db);
     get(child(dbRef, `/${user}`))
       .then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-          setDayData(data.todo_days || {});
           setWeekData(data.todo_week || {});
+
+          let NewweekData: ScheduleData = {};
+          for (let d in data.todo_days) {
+            if (todday > new Date(data.todo_days[d].selectedDays[0])) {
+              remove(ref(db, `${user}/todo_days/${d}`)).catch((error) => {
+                console.error("Failed to remove data from Firebase:", error);
+              });
+              continue;
+            }
+            NewweekData[d] = data.todo_days[d];
+          }
+          setDayData(NewweekData || {});
         } else {
           console.log("No data available");
         }
