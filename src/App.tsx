@@ -25,7 +25,7 @@ function App() {
 
           let NewweekData: ScheduleData = {};
           for (let d in data.todo_days) {
-            if (todday > new Date(data.todo_days[d].selectedDays[0])) {
+            if (todday > new Date(data.todo_days[d].selectedDays[1])) {
               remove(ref(db, `${user}/todo_days/${d}`)).catch((error) => {
                 console.error("Failed to remove data from Firebase:", error);
               });
