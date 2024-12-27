@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ref, set, remove } from "firebase/database";
 import { db } from "./firebase";
 import { uid } from "uid";
@@ -61,6 +61,24 @@ const AddSchedule = ({
   const [selectedDays, setSelectedDays] = useState<
     string[] | FormDataEntryValue[]
   >([]);
+  const [daySorted, setDaySorted] = useState<[string, ScheduleItem][]>([]);
+
+  useEffect(() => {
+    const changeArr = Object.entries(day);
+    changeArr.sort((a, b) => {
+      const parseDate = (value: unknown): number => {
+        if (typeof value === "string") {
+          return new Date(value).getTime();
+        }
+        return 0; // 기본값
+      };
+
+      const dateA = parseDate(a[1].selectedDays[0]);
+      const dateB = parseDate(b[1].selectedDays[0]);
+      return dateA - dateB;
+    });
+    setDaySorted([...changeArr]);
+  }, [day]);
 
   const inputSchedule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -209,21 +227,21 @@ const AddSchedule = ({
         </ul>
       ) : (
         <ul className={style.scheduleList}>
-          {Object.entries(day).map(([idx, tasks]) => (
-            <li className={style.scheduleItem} key={idx}>
+          {daySorted.map((day, idx) => (
+            <li className={style.scheduleItem} key={day[0]}>
               <div
                 className={style.colorbox}
-                style={{ background: day[idx].color }}
+                style={{ background: day[1].color }}
               ></div>
               <h1
                 className={style.content}
-                style={selectDay === day[idx].color ? { fontSize: "30px" } : {}}
+                style={selectDay === day[1].color ? { fontSize: "30px" } : {}}
               >
-                {day[idx].scheduleContent}
+                {day[1].scheduleContent}
               </h1>
               <p
                 className={style.deleteBtn}
-                onClick={() => removeData(idx)}
+                onClick={() => removeData(day[0])}
               ></p>
             </li>
           ))}
