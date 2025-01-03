@@ -194,20 +194,26 @@ const AddSchedule = ({
             />
           </div>
         )}
-        <input
-          type="color"
-          value={color}
-          onChange={(e) => setColor(e.target.value)}
-        />
-        <input
-          className={style.inpuBox}
-          value={scheduleContent}
-          placeholder="내용 입력해주세요"
-          onChange={changeInput}
-        />
-        <button className={style.inputBtn} type="submit">
-          추가
-        </button>
+        <div className={style.buttonDiv}>
+          <input
+            type="color"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+          />
+          <input
+            className={style.inpuBox}
+            value={scheduleContent}
+            placeholder="내용 입력해주세요"
+            onChange={changeInput}
+          />
+          <button className={style.inputBtn} type="submit">
+            <img
+              className={style.img}
+              src={`${process.env.PUBLIC_URL}/pngegg.png`}
+              alt="button img"
+            ></img>
+          </button>
+        </div>
       </form>
       {scheduleType === "주" ? (
         <ul className={style.scheduleList}>

@@ -48,7 +48,12 @@ const LoggCheck = ({
   return (
     <div className={style.main}>
       <button className={style.btn} onClick={sign}>
-        로그인
+        <img
+          className={style.img}
+          src={`${process.env.PUBLIC_URL}/Google__G__logo.svg`}
+          alt="My Happy SVG"
+        />
+        구글 로그인
       </button>
     </div>
   );
