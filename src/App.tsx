@@ -15,7 +15,10 @@ function App() {
   const [dayData, setDayData] = useState<ScheduleData>({});
   useEffect(() => {
     if (!isLogged) return;
-    const todday = new Date();
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     const dbRef = ref(db);
     get(child(dbRef, `/${user}`))
       .then((snapshot) => {
@@ -25,7 +28,10 @@ function App() {
 
           let NewweekData: ScheduleData = {};
           for (let d in data.todo_days) {
-            if (todday > new Date(data.todo_days[d].selectedDays[1])) {
+            const selectedDay = new Date(data.todo_days[d].selectedDays[1]);
+            selectedDay.setHours(0, 0, 0, 0);
+
+            if (selectedDay < today) {
               remove(ref(db, `${user}/todo_days/${d}`)).catch((error) => {
                 console.error("Failed to remove data from Firebase:", error);
               });
@@ -42,6 +48,7 @@ function App() {
         console.error(error);
       });
   }, [isLogged]);
+
   return (
     <>
       {isLogged ? (
