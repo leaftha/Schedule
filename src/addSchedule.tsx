@@ -46,7 +46,12 @@ const saveScheduleData = (
 //     )
 // );
 
-const ScheduleList = React.lazy(() => import("./ScheduleList"));
+const ScheduleList = React.lazy(
+  () =>
+    new Promise((resolve) =>
+      setTimeout(() => resolve(import("./ScheduleList").then()), 1000)
+    )
+);
 
 const AddSchedule = ({
   user,
