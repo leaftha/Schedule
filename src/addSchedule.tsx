@@ -95,8 +95,6 @@ const AddSchedule = ({
     setDaySorted([...newSchedule]);
   }, [day, currentDate]);
 
-  console.log(loading);
-
   const inputSchedule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
