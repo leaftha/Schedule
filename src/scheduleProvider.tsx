@@ -12,7 +12,7 @@ type ScheduleContextType = {
 const TypeContext = createContext<ScheduleContextType | undefined>(undefined);
 
 const ScheduleProvider = ({ children }: { children: React.ReactNode }) => {
-  const [scheduleType, setScheduleType] = useState<ScheduleType>("주");
+  const [scheduleType, setScheduleType] = useState<ScheduleType>("월");
   const [selectDay, setSelectedDay] = useState<string>("");
 
   return (

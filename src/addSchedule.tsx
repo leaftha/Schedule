@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { ref, set, remove } from "firebase/database";
 import { db } from "./firebase";
 import { uid } from "uid";
 import { useSchedule } from "./scheduleProvider";
 import { ScheduleData, ScheduleItem } from "./types";
 import style from "./addSchedule.module.css";
+import ScheduleSkeleton from "./ScheduleSkeleton";
 
 const createNewData = (
   scheduleContent: string,
@@ -38,6 +39,14 @@ const saveScheduleData = (
     [uuid]: newData,
   }));
 };
+// const ScheduleList = React.lazy(
+//   () =>
+//     new Promise((resolve) =>
+//       setTimeout(() => resolve(import("./ScheduleList").then()), 2000)
+//     )
+// );
+
+const ScheduleList = React.lazy(() => import("./ScheduleList"));
 
 const AddSchedule = ({
   user,
@@ -243,26 +252,13 @@ const AddSchedule = ({
           ))}
         </ul>
       ) : (
-        <ul className={style.scheduleList}>
-          {daySorted.map((day, idx) => (
-            <li className={style.scheduleItem} key={day[0]}>
-              <div
-                className={style.colorbox}
-                style={{ background: day[1].color }}
-              ></div>
-              <h1
-                className={style.content}
-                style={selectDay === day[1].color ? { fontSize: "30px" } : {}}
-              >
-                {day[1].scheduleContent}
-              </h1>
-              <p
-                className={style.deleteBtn}
-                onClick={() => removeData(day[0])}
-              ></p>
-            </li>
-          ))}
-        </ul>
+        <Suspense fallback={<ScheduleSkeleton />}>
+          <ScheduleList
+            daySorted={daySorted}
+            selectDay={selectDay}
+            removeData={removeData}
+          />
+        </Suspense>
       )}
     </div>
   );
