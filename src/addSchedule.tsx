@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ref, set, remove } from "firebase/database";
 import { db } from "./firebase";
 import { uid } from "uid";
@@ -6,6 +6,7 @@ import { useSchedule } from "./scheduleProvider";
 import { ScheduleData, ScheduleItem } from "./types";
 import style from "./addSchedule.module.css";
 import ScheduleSkeleton from "./ScheduleSkeleton";
+import ScheduleList from "./ScheduleList";
 
 const createNewData = (
   scheduleContent: string,
@@ -39,19 +40,6 @@ const saveScheduleData = (
     [uuid]: newData,
   }));
 };
-// const ScheduleList = React.lazy(
-//   () =>
-//     new Promise((resolve) =>
-//       setTimeout(() => resolve(import("./ScheduleList").then()), 2000)
-//     )
-// );
-
-const ScheduleList = React.lazy(
-  () =>
-    new Promise((resolve) =>
-      setTimeout(() => resolve(import("./ScheduleList").then()), 1000)
-    )
-);
 
 const AddSchedule = ({
   user,
@@ -60,6 +48,7 @@ const AddSchedule = ({
   day,
   addDay,
   currentDate,
+  loading,
 }: {
   user: string;
   week: ScheduleData;
@@ -67,6 +56,7 @@ const AddSchedule = ({
   day: ScheduleData;
   addDay: React.Dispatch<React.SetStateAction<ScheduleData>>;
   currentDate: Date;
+  loading: boolean;
 }) => {
   const { scheduleType, selectDay, setScheduleType } = useSchedule();
   const [scheduleContent, setScheduleContent] = useState<string>("");
@@ -104,6 +94,8 @@ const AddSchedule = ({
     }
     setDaySorted([...newSchedule]);
   }, [day, currentDate]);
+
+  console.log(loading);
 
   const inputSchedule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -240,7 +232,21 @@ const AddSchedule = ({
           </button>
         </div>
       </form>
-      {scheduleType === "주" ? (
+      {loading ? (
+        <ScheduleSkeleton />
+      ) : (
+        <ScheduleList
+          daySorted={scheduleType === "주" ? Object.entries(week) : daySorted}
+          selectDay={selectDay}
+          removeData={removeData}
+        />
+      )}
+      {/* <ScheduleList
+        daySorted={scheduleType === "주" ? Object.entries(week) : daySorted}
+        selectDay={selectDay}
+        removeData={removeData}
+      /> */}
+      {/* {scheduleType === "주" ? (
         <ul className={style.scheduleList}>
           {Object.entries(week).map(([day, tasks]) => (
             <li className={style.scheduleItem} key={day}>
@@ -264,7 +270,7 @@ const AddSchedule = ({
             removeData={removeData}
           />
         </Suspense>
-      )}
+      )} */}
     </div>
   );
 };

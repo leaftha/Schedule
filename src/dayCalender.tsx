@@ -44,7 +44,6 @@ const DayCalendar = ({
   };
   useEffect(() => {
     const newDate: Array<string[]> = [];
-
     for (const key in Schedules) {
       const { scheduleContent, selectedDays } = Schedules[key];
       if (selectedDays.length >= 2) {

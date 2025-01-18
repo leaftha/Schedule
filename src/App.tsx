@@ -11,14 +11,17 @@ import { ScheduleData } from "./types";
 function App() {
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [weekData, setWeekData] = useState<ScheduleData>({});
-  const [user, setUser] = useState<string>("");
   const [dayData, setDayData] = useState<ScheduleData>({});
+  const [user, setUser] = useState<string>("");
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [loading, setLoading] = useState<boolean>(false);
+
   useEffect(() => {
     if (!isLogged) return;
-
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+
+    setLoading(true);
 
     const dbRef = ref(db);
     get(child(dbRef, `/${user}`))
@@ -46,6 +49,9 @@ function App() {
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        setLoading(false); // 로딩 종료
       });
   }, [isLogged]);
 
@@ -64,6 +70,7 @@ function App() {
             />
             <AddSchedule
               user={user}
+              loading={loading}
               week={weekData}
               addWeek={setWeekData}
               day={dayData}
