@@ -13,6 +13,7 @@ function App() {
   const [weekData, setWeekData] = useState<ScheduleData>({});
   const [user, setUser] = useState<string>("");
   const [dayData, setDayData] = useState<ScheduleData>({});
+  const [currentDate, setCurrentDate] = useState(new Date());
   useEffect(() => {
     if (!isLogged) return;
 
@@ -25,7 +26,6 @@ function App() {
         if (snapshot.exists()) {
           const data = snapshot.val();
           setWeekData(data.todo_week || {});
-
           let NewweekData: ScheduleData = {};
           for (let d in data.todo_days) {
             const selectedDay = new Date(data.todo_days[d].selectedDays[1]);
@@ -60,6 +60,7 @@ function App() {
               deleteWeek={setWeekData}
               DaySchedules={dayData}
               deleteDay={setDayData}
+              setCurrentDate={setCurrentDate}
             />
             <AddSchedule
               user={user}
@@ -67,6 +68,7 @@ function App() {
               addWeek={setWeekData}
               day={dayData}
               addDay={setDayData}
+              currentDate={currentDate}
             />
           </ScheduleProvider>
         </div>

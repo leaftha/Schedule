@@ -5,27 +5,22 @@ import { useSchedule } from "./scheduleProvider";
 
 import style from "./dayCalender.module.css";
 
-// interface ScheduleItem {
-//   id: string;
-//   content: string;
-//   date: string[];
-// }
-
 const DayCalendar = ({
   user,
   Schedules,
   setSchedules,
+  setCurrentDate,
 }: {
   user: string;
   Schedules: ScheduleData;
   setSchedules: React.Dispatch<React.SetStateAction<ScheduleData>>;
+  setCurrentDate: React.Dispatch<React.SetStateAction<Date>>;
 }) => {
   const { weekCalendarList, currentDate, goToPrevMonth, goToNextMonth } =
     useCalendar();
   // const [schedule, setSchedule] = useState<ScheduleItem[]>([]);
   const [date, setDate] = useState<string[][]>([]);
   const { setSelectedDay } = useSchedule();
-
   const getDatesInRange = (
     startDate: string,
     endDate: string,
@@ -47,7 +42,6 @@ const DayCalendar = ({
     }
     return dates;
   };
-
   useEffect(() => {
     const newDate: Array<string[]> = [];
 
@@ -65,6 +59,10 @@ const DayCalendar = ({
     }
     setDate(newDate);
   }, [Schedules]);
+
+  useEffect(() => {
+    setCurrentDate(currentDate);
+  }, [currentDate]);
   const weekTitle = ["일", "월", "화", "수", "목", "금", "토"];
   return (
     <div className={style.main}>

@@ -9,12 +9,14 @@ const Calender = ({
   deleteWeek,
   DaySchedules,
   deleteDay,
+  setCurrentDate,
 }: {
   user: string;
   weekSchedules: ScheduleData;
   deleteWeek: React.Dispatch<React.SetStateAction<ScheduleData>>;
   DaySchedules: ScheduleData;
   deleteDay: React.Dispatch<React.SetStateAction<ScheduleData>>;
+  setCurrentDate: React.Dispatch<React.SetStateAction<Date>>;
 }) => {
   const { scheduleType } = useSchedule();
 
@@ -31,6 +33,7 @@ const Calender = ({
           user={user}
           Schedules={DaySchedules}
           setSchedules={deleteDay}
+          setCurrentDate={setCurrentDate}
         />
       )}
     </>

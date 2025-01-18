@@ -38,18 +38,21 @@ const saveScheduleData = (
     [uuid]: newData,
   }));
 };
+
 const AddSchedule = ({
   user,
   week,
   addWeek,
   day,
   addDay,
+  currentDate,
 }: {
   user: string;
   week: ScheduleData;
   addWeek: React.Dispatch<React.SetStateAction<ScheduleData>>;
   day: ScheduleData;
   addDay: React.Dispatch<React.SetStateAction<ScheduleData>>;
+  currentDate: Date;
 }) => {
   const { scheduleType, selectDay, setScheduleType } = useSchedule();
   const [scheduleContent, setScheduleContent] = useState<string>("");
@@ -62,23 +65,31 @@ const AddSchedule = ({
     string[] | FormDataEntryValue[]
   >([]);
   const [daySorted, setDaySorted] = useState<[string, ScheduleItem][]>([]);
-
   useEffect(() => {
-    const changeArr = Object.entries(day);
-    changeArr.sort((a, b) => {
+    let currentMonth = currentDate.getMonth() + 1;
+    const changeSort = Object.entries(day);
+    changeSort.sort((a, b) => {
       const parseDate = (value: unknown): number => {
         if (typeof value === "string") {
           return new Date(value).getTime();
         }
-        return 0; // 기본값
+        return 0;
       };
 
       const dateA = parseDate(a[1].selectedDays[0]);
       const dateB = parseDate(b[1].selectedDays[0]);
       return dateA - dateB;
     });
-    setDaySorted([...changeArr]);
-  }, [day]);
+    const newSchedule = [];
+    for (let date of changeSort) {
+      let startMoth = new Date(`${date[1].selectedDays[0]}`).getMonth() + 1;
+      let endMoth = new Date(`${date[1].selectedDays[1]}`).getMonth() + 1;
+      if (startMoth === currentMonth || endMoth === currentMonth) {
+        newSchedule.push(date);
+      }
+    }
+    setDaySorted([...newSchedule]);
+  }, [day, currentDate]);
 
   const inputSchedule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
