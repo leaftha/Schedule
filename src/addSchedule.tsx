@@ -94,7 +94,6 @@ const AddSchedule = ({
     }
     setDaySorted([...newSchedule]);
   }, [day, currentDate]);
-
   const inputSchedule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
@@ -104,7 +103,10 @@ const AddSchedule = ({
       alert("날짜와 내용을 입력해 주세요");
       return;
     }
-
+    if (new Date(startDays) > new Date(endDays)) {
+      alert("시작 날짜가 끝 날짜보다 초과 되었습니다.");
+      return;
+    }
     const uuid = uid();
     const dbPath = scheduleType === "주" ? "todo_week" : "todo_days";
 
