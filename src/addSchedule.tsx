@@ -70,6 +70,7 @@ const AddSchedule = ({
   >([]);
   const [daySorted, setDaySorted] = useState<[string, ScheduleItem][]>([]);
   useEffect(() => {
+    let currentYear = currentDate.getFullYear();
     let currentMonth = currentDate.getMonth() + 1;
     const changeSort = Object.entries(day);
     changeSort.sort((a, b) => {
@@ -88,7 +89,12 @@ const AddSchedule = ({
     for (let date of changeSort) {
       let startMoth = new Date(`${date[1].selectedDays[0]}`).getMonth() + 1;
       let endMoth = new Date(`${date[1].selectedDays[1]}`).getMonth() + 1;
-      if (startMoth === currentMonth || endMoth === currentMonth) {
+      let startYear = new Date(`${date[1].selectedDays[0]}`).getFullYear();
+      let endYear = new Date(`${date[1].selectedDays[1]}`).getFullYear();
+      if (
+        (startMoth === currentMonth || endMoth === currentMonth) &&
+        (startYear === currentYear || endYear === currentYear)
+      ) {
         newSchedule.push(date);
       }
     }
