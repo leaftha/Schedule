@@ -127,3 +127,20 @@ table {
 html {
   font-family: "Noto Sans KR", serif;
 }
+
+@media screen and (max-width: 767px) {
+  /** Mobile */
+  body {
+    font-size: 10px;
+  }
+}
+
+@media all and (min-width: 768px) and (max-width: 1023px) {
+  body {
+    font-size: 13px;
+  }
+}
+
+@media all and (max-width: 1023px) {
+  /** Mobile & Tablet  */
+}

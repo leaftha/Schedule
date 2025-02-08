@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 3.125em; /* 50px */
 }
 
 .inputForm {
@@ -14,8 +14,8 @@
   text-align: center;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
-  margin: 20px 0;
+  font-size: 1.875em; /* 30px */
+  margin: 1.25em 0; /* 20px 0 */
 }
 
 .buttonDiv {
@@ -26,33 +26,33 @@
 }
 
 .inpuBox {
-  font-size: 20px;
+  font-size: 1.25em; /* 20px */
 }
+
 .inputBtn {
   background: #ffffff;
-  /* width: 10px;
-  height: 10px; */
   border: none;
   cursor: pointer;
-  margin: 0 10px;
+  margin: 0 0.625em; /* 10px */
 }
 
 .img {
-  width: 30px;
-  height: 30px;
+  width: 1.875em; /* 30px */
+  height: 1.875em; /* 30px */
   vertical-align: middle;
 }
 
 .btn {
-  margin: 0 10px;
+  margin: 0 0.625em; /* 10px */
   cursor: pointer;
   transition: 0.5s;
 }
+
 .scheduleList {
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin: 20px 0;
+  margin: 1.25em 0; /* 20px 0 */
   width: 100%;
 }
 
@@ -60,8 +60,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 20px;
-  margin: 10px 0;
+  font-size: 1.25em; /* 20px */
+  margin: 0.625em 0; /* 10px 0 */
   width: 90%;
 }
 
@@ -72,12 +72,9 @@
 }
 
 .deleteBtn {
-  /* margin-left: 20px;/ */
   cursor: pointer;
   width: 10%;
   justify-self: flex-end;
-
-  /* justify-content: center; */
 }
 
 .deleteBtn::after {
@@ -87,8 +84,8 @@
 .days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  font-size: 25px;
-  margin: 40px 0;
+  font-size: 1.5625em; /* 25px */
+  margin: 2.5em 0; /* 40px 0 */
 }
 
 .dayBtn {
@@ -103,24 +100,25 @@
 .dayBtn:last-child {
   color: blue;
 }
+
 .colorbox {
-  width: 40px;
-  height: 20px;
+  width: 2.5em; /* 40px */
+  height: 1.25em; /* 20px */
 }
 
 .addDay {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px 0;
+  margin: 1.25em 0; /* 20px 0 */
 }
 
 .DayInput {
-  font-size: 15px;
-  margin: 0 10px;
+  font-size: 0.9375em; /* 15px */
+  margin: 0 0.625em; /* 10px */
 }
 
 .side {
-  font-size: 20px;
+  font-size: 1.25em; /* 20px */
   font-weight: bold;
 }

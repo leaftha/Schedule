@@ -2,7 +2,7 @@
   display: flex;
   width: 100%;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 6.25em; /* 100px */
 }
 
 .content {
@@ -11,13 +11,14 @@
 }
 
 .title {
-  font-size: 50px;
+  font-size: 3.125em; /* 50px */
   font-weight: bold;
 }
 
 .content:first-child {
   color: red;
 }
+
 .content:last-child {
   color: blue;
 }
@@ -26,9 +27,9 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin: 50px 0;
+  margin: 3.125em 0; /* 50px 0 */
   width: 100%;
-  font-size: 25px;
+  font-size: 1.5625em; /* 25px */
 }
 
 .scheduleContent {
@@ -37,10 +38,21 @@
   color: black;
   align-items: center;
   justify-content: center;
-  margin: 50px 0;
+  margin: 3.125em 0; /* 50px 0 */
 }
 
 .colorbox {
   width: 90%;
-  height: 10px;
+  height: 0.625em; /* 10px */
+}
+
+@media screen and (max-width: 767px) {
+  /** Mobile */
+
+  .title {
+    font-size: 2em;
+  }
+  .schedule {
+    font-size: 1em;
+  }
 }
